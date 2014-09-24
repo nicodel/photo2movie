@@ -1,0 +1,56 @@
+html {
+	background: #111111;
+	height: 100%;
+	background: linear-gradient( #333, #000);
+}
+canvas {
+	display: none;
+}
+video, img, button {
+	display: block;
+	float: left;
+	border: 10px solid #fff;
+	border-radius: 10px;
+}
+#startbutton {
+	background: green;
+	border: none;
+	color: #fff;
+	margin: 10px 20px 20px 20px;
+	padding: 10px 20px;
+	font-size: 20px;
+  top: 300px;
+}
+#playbutton {
+	background: red;
+	border: none;
+	color: #fff;
+	margin: 10px 20px 20px 20px;
+	padding: 10px 20px;
+	font-size: 20px;
+  top: 360px;
+
+}
+#container {
+	overflow: hidden;
+	/* width: 880px; */
+	margin: 20px auto;
+}
+img {
+  border: 15px solid blue;
+}
+video {
+  margin: 5px;
+  zoom: 1;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+
+}
+
+video, img, button {
+  position: fixed;
+}
+/*video, img {
+  width: 240px;
+  height: 240px;
+}*/
