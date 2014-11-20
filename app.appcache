@@ -1,0 +1,29 @@
+CACHE MANIFEST
+# v 0.0.1
+
+CACHE
+
+# Main files
+index.html
+
+# css/
+css/app.css
+
+# css/font/
+
+# img/
+
+# js/
+js/app.js
+js/controller.js
+js/events.js
+js/models
+js/views
+
+# lib/
+lib/brick/brick-1.0.1.byob.min.css
+lib/brick/brick-1.0.1.byob.min.js
+lib/webL10n/l10n.js
+
+# locales/
+

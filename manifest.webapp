@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1",
+  "name": "p2m",
+  "description": "p2m will be a stop motion and timelaps web pp. Design to work inside the browser of any device.",
+  "type": web,
+  "launch_path": "/index.html",
+  "icons": {
+    "60": "/img/icon60.png",
+    "128": "/img/icon128.png"
+  },
+  "developer": {
+    "name": "Nicolas Delebecque",
+    "url": "http://www.github.com/nicodel"
+  },
+  "permissions": {},
+  "installs_allowed_from": [
+    "*"
+  ],
+  "locales": {},
+  "default_locale": "en"
+}
