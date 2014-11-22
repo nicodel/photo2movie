@@ -41,10 +41,14 @@
         <!-- Card 2 -->
         <x-card id="recording">
         <p>Video recording</p>
-          <div id="videocontainer">
-            <video id="video"></video>
-          </div>
-          <canvas id="canvas"></canvas>
+        <div id="container">
+		      <canvas id="canvas"></canvas>
+		      <img id="photo" alt="photo">
+		      <video id="video"></video>
+          <button id="startbutton">Take photo</button>
+          <!-- <button id="playbutton">Play movie</button> -->
+          <video id="player"></video>
+        </div>
         </x-card>
         </x-deck>
       </section>
@@ -55,8 +59,8 @@
       <!-- </x&#45;footer> -->
     </x-layout>
     <script src="lib/brick/brick.min.js"></script>
-    <script src="js/controller.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
 
 
     <script>

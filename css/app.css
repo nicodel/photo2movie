@@ -4,9 +4,9 @@ body, html {
   margin: 0;
   padding: 0;
 }
-x-slider {
-  width: 100%;
-}
 x-card p {
   padding: 1em;
+}
+x-card canvas {
+  display: none;
 }
