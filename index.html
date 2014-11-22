@@ -1,22 +1,68 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-  <title>photo2movie</title>
-  <link rel="stylesheet" href="css/app.css" />
-</head>
-<body>
-	<div id="container">
-		<canvas id="canvas"></canvas>
-		<img id="photo" alt="photo">
-		<video id="video"></video>
-    <button id="startbutton">Take photo</button>
-    <button id="playbutton">Play movie</button>
-    <video id="player"></video>
-  </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title>Photo2Movie</title>
+    <link rel="stylesheet" href="lib/brick/brick.min.css">
+    <link rel="stylesheet" href="css/app.css">
 
-  <script type="text/javascript" src="lib/whammy.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
+  </head>
+  <body>
+    <x-layout>
+      <header>
+        <x-appbar>
+          <button>Foo</button>
+          <h1>Brick</h1>
+          <button>Bar</button>
+        </x-appbar>
+      </header>
+      <section>
+        <x-deck>
+        
+        <!-- Card 0 -->
+        <x-card id="home">
+        <h1>TEST</h1>
+        <ul>
+          <li>
+          <img alt="video1"></img>
+          <p>ceci est video 1</p>
+          </li>
+        </ul>
+        <x-tabbar>
+          <button id="btn-settings" class="icon icon-settings">Settings</button>
+        </x-tabbar>
 
-</body>
+        </x-card>
+        <!-- Card 1 -->
+        <x-card id="settings">
+        </x-card>
+
+        <!-- Card 2 -->
+        <x-card id="recording">
+        <p>Video recording</p>
+          <div id="videocontainer">
+            <video id="video"></video>
+          </div>
+          <canvas id="canvas"></canvas>
+        </x-card>
+        </x-deck>
+      </section>
+      <!-- <footer> -->
+        <!-- <x&#45;tabbar> -->
+          <!-- <button id="btn&#45;settings" class="icon icon&#45;settings">Settings</button> -->
+        <!-- </x&#45;tabbar> -->
+      <!-- </x&#45;footer> -->
+    </x-layout>
+    <script src="lib/brick/brick.min.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/app.js"></script>
+
+
+    <script>
+      document.addEventListener('DOMComponentsLoaded', function(){
+        document.querySelector('x-deck').showCard(2);
+      });
+    </script>
+  </body>
 </html>
