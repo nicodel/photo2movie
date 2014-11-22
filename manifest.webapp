@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "name": "p2m",
   "description": "p2m will be a stop motion and timelaps web pp. Design to work inside the browser of any device.",
-  "type": web,
+  "type": "web",
   "launch_path": "/index.html",
   "icons": {
     "60": "/img/icon60.png",
@@ -12,7 +12,9 @@
     "name": "Nicolas Delebecque",
     "url": "http://www.github.com/nicodel"
   },
-  "permissions": {},
+  "permissions": {
+    "video-capture": {"description": "Need access to camera in order to take pictures."}
+  },
   "installs_allowed_from": [
     "*"
   ],

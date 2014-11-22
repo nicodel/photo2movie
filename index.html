@@ -6,26 +6,27 @@
     <title>Photo2Movie</title>
     <link rel="stylesheet" href="lib/brick/brick.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/styles.css">
 
   </head>
   <body>
     <x-layout>
-      <header>
-        <x-appbar>
-          <button>Foo</button>
-          <h1>Brick</h1>
-          <button>Bar</button>
-        </x-appbar>
-      </header>
+      <!-- <header> -->
+        <!-- <x&#45;appbar> -->
+          <!-- <button>Foo</button> -->
+          <!-- <h1>Brick</h1> -->
+          <!-- <button>Bar</button> -->
+        <!-- </x&#45;appbar> -->
+      <!-- </header> -->
       <section>
         <x-deck>
-        
+
         <!-- Card 0 -->
         <x-card id="home">
         <h1>TEST</h1>
         <ul>
           <li>
-          <img alt="video1"></img>
+          <img alt="video1" />
           <p>ceci est video 1</p>
           </li>
         </ul>
@@ -40,15 +41,19 @@
 
         <!-- Card 2 -->
         <x-card id="recording">
-        <p>Video recording</p>
-        <div id="container">
+
+          <canvas id="canvas"></canvas>
+          <img id="photo" alt="photo">
+          <video id="video"></video>
+          <button id="startbutton">Take photo</button>
+
+<!--         <div id="container">
 		      <canvas id="canvas"></canvas>
-		      <img id="photo" alt="photo">
+		      <img id="photo" alt="photo" />
 		      <video id="video"></video>
           <button id="startbutton">Take photo</button>
-          <!-- <button id="playbutton">Play movie</button> -->
           <video id="player"></video>
-        </div>
+        </div> -->
         </x-card>
         </x-deck>
       </section>
@@ -59,14 +64,15 @@
       <!-- </x&#45;footer> -->
     </x-layout>
     <script src="lib/brick/brick.min.js"></script>
+    <!--  script src="js/controller.js"></script> -->
     <script src="js/app.js"></script>
-    <script src="js/controller.js"></script>
 
 
-    <script>
+<!--    <script>
       document.addEventListener('DOMComponentsLoaded', function(){
         document.querySelector('x-deck').showCard(2);
       });
     </script>
+ -->
   </body>
 </html>

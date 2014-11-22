@@ -1,4 +1,5 @@
 body, html {
+  background: black;
   font-family: sans-serif;
   height: 100%;
   margin: 0;
@@ -9,4 +10,18 @@ x-card p {
 }
 x-card canvas {
   display: none;
+}
+video, img {
+  position: fixed;
+  display: block;
+  float: left;
+}
+x-card button {
+  bottom: 10px;
+  position: absolute;
+}
+.transparent {
+  zoom: 1;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
 }
