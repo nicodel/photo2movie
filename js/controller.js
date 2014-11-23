@@ -24,7 +24,20 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     DB.getConfig(__getConfigSuccess, __getConfigError);
+    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
   }
+  function __getAnimationsSuccess(inAnimations) {
+    HomeView.display(inAnimations, __displayAnim);
+  }
+
+  function __displayAnim(inAnim) {
+    console.log("inAnim display: ", inAnim);
+    // displayed_track = inAnim;
+    // TrackView.display(inTrack, __saveMap);
+  }
+
+  function __getAnimationsError(inError) {}
+
   function __initiateError(inEvent) {
     utils.status.show(inEvent);
   }
