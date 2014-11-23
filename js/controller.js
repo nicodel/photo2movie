@@ -8,10 +8,12 @@ var Controller = function() {
       canvas       = document.querySelector('#canvas'),
       photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#btn-take'),
-      width        = 320,
+      width        = 640,
+      // width        = 320, //Flame
       // height       = width * 0.75;
-      height       = 240;
-      // height       = 427;
+      // height       = 240; // Webcam
+      // height       = 427; //Flame
+      height       = 480;
 
   navigator.getMedia = (navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
@@ -33,7 +35,8 @@ var Controller = function() {
   function __displayAnim(inAnim) {
     console.log("inAnim display: ", inAnim);
     // displayed_track = inAnim;
-    // TrackView.display(inTrack, __saveMap);
+    document.querySelector('x-deck').showCard(3)
+    EditorView.display(inAnim);
   }
 
   function __getAnimationsError(inError) {}
@@ -100,6 +103,20 @@ var Controller = function() {
     console.log("NO !", inError);
   }
 
+  function editorPlay() {
+    EditorView.play();
+  }
+  function editorPause() {
+    EditorView.pause();
+  }
+  function editorStop() {
+    EditorView.stop();
+  }
+
+  function displayAnimations() {
+    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
+  }
+
   // startbutton.addEventListener('click', function(ev){
   //     takepicture();
   //   ev.preventDefault();
@@ -108,6 +125,10 @@ var Controller = function() {
   return {
     init: init,
     initiateCamera: initiateCamera,
-    takePicture: takePicture
+    takePicture: takePicture,
+    editorPlay: editorPlay,
+    editorPause: editorPause,
+    editorStop: editorStop,
+    displayAnimations: displayAnimations
   }
 }();

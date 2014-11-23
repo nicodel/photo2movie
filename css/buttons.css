@@ -131,4 +131,12 @@ section button.icon.icon-open {
 section button.icon.icon-take {
   background-image: url("../img/camera_84.png");
 }
-
+section button.icon.icon-play {
+  background-image: url("../img/icon-play.png");
+}
+section button.icon.icon-pause {
+  background-image: url("../img/icon-pause.png");
+}
+section button.icon.icon-stop {
+  background-image: url("../img/icon-stop.png");
+}

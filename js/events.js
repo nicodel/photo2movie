@@ -23,6 +23,7 @@ document.getElementById("btn-settings").addEventListener ("click", function() {
 /* Record View exit button */
 document.getElementById("btn-exit").addEventListener ("click", function() {
   console.log("EXIT");
+  Controller.displayAnimations();
   document.querySelector('x-deck').showCard(0);
 });
 /* Record View take button */
@@ -35,4 +36,25 @@ document.getElementById("btn-take").addEventListener ("click", function(ev) {
 document.getElementById("btn-open").addEventListener ("click", function() {
   console.log("OPEN");
   // document.querySelector('x-deck').showCard(0);
+});
+
+/*----------------- Player View -----------------*/
+/* Player View play button */
+document.getElementById("btn-play").addEventListener ("click", function() {
+  console.log("PLAY");
+  Controller.editorPlay();
+});
+/* Player View play button */
+document.getElementById("btn-pause").addEventListener ("click", function() {
+  console.log("PAUSE");
+  Controller.editorPause();
+});
+/* Player View stop button */
+document.getElementById("btn-stop").addEventListener ("click", function() {
+  console.log("STOP");
+  Controller.editorStop();
+});
+/* Player View back button */
+document.getElementById("btn-back-player").addEventListener ("click", function() {
+  document.querySelector('x-deck').showCard(0);
 });

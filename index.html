@@ -17,6 +17,7 @@
     <!-- skin -->
     <link rel="stylesheet" href="css/status.css"/>
     <link rel="stylesheet" href="css/x-layout.css"/>
+    <link rel="stylesheet" href="css/spinner.css"/>
     <link rel="stylesheet" href="css/buttons.css"/>
 
     <!-- app styles -->
@@ -31,20 +32,7 @@
         <x-card id="home">
         <x-layout>
           <section data-type="animations">
-          <ul id="animations-list">
-            <li>
-                <a id="AN-20141123-075933">
-                <img src="tmp/Rz_100.jpg" />
-                <p>shopping</p>
-              </a>
-            </li>
-            <li>
-              <a id="AN-20141123-065933">
-                <img src="tmp/Mn_104.jpg" />
-                <p>lemon</p>
-              </a>
-            </li>
-          </ul>
+          <ul id="animations-list"></ul>
           <button id="btn-new" class="icon icon-new">New</button>
           <button id="btn-settings" class="icon icon-settings">Settings</button>
           </section>
@@ -71,8 +59,15 @@
 
         <!-- Card 3 -->
         <x-card id="Anim View">
+        <section>
           <p id="anim-title"></p>
-          <video id="video-play"></video>
+          <img id="video-player" />
+          <button id="btn-back-player" class="icon icon-back">Back</button>
+          <button id="btn-play" class="icon icon-play">Play</button>
+          <button id="btn-pause" class="icon icon-pause">Pause</button>
+          <button id="btn-stop" class="icon icon-stop">Stop</button>
+          <button id="btn-open" class="icon icon-open">Edit</button>
+        </section>
         </x-card>
 
         </x-deck>
@@ -81,6 +76,7 @@
   <script src="lib/brick/brick.min.js"></script>
   <!-- views -->
   <script type="text/javascript" src="js/views/status.js"></script>
+  <script type="text/javascript" src="js/views/editor-view.js"></script>
   <script type="text/javascript" src="js/views/home-view.js"></script>
   <!-- models -->
   <script type="text/javascript" src="js/models/animations.js"></script>
