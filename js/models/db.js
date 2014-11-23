@@ -74,6 +74,36 @@ var DB = function() {
       errorCallback("addAnimation successCallback should be a function");
     }
   }
+  function addPhoto(successCallback, errorCallback, inAnimation) {
+    if (typeof successCallback === "function") {
+
+      var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
+      tx.oncomplete = function(e) {
+        // console.log("addAnimation transaction completed !");
+      };
+      tx.onerror = function(e) {
+        // console.error("addAnimation transaction error: ", tx.error.name);
+        errorCallback(e.error.name);
+      };
+      var store = tx.objectStore(DB_STORE_ANIMATIONS);
+      var req = store.get(inAnimation.id);
+      req.onsuccess = function(e) {
+        var req2 = store.put(inAnimation);
+        req2.onsuccess = function(e) {
+          console.log("animation successfully updated");
+        }
+        req2.onerror = function(e) {
+          console.log("failure on saving animation");
+          errorCallback(e.error.name);
+        }
+      };
+      req.onerror = function(e) {
+        errorCallback(req.error.name);
+      };
+    } else  {
+      errorCallback("addPhoto successCallback should be a function");
+    }
+  }
   function getAnimations(successCallback, errorCallback) {
     if (typeof successCallback === "function") {
       var all_animations = [];
