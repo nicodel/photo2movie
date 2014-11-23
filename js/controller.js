@@ -1,7 +1,9 @@
 "use strict"
 var Controller = function() {
 
-  var streaming    = false,
+  var current_anim = {},
+      nb           = 0,
+      streaming    = false,
       video        = document.querySelector('#video'),
       canvas       = document.querySelector('#canvas'),
       photo        = document.querySelector('#photo'),
@@ -9,6 +11,7 @@ var Controller = function() {
       width        = 320,
       // height       = width * 0.75;
       height       = 240;
+      // height       = 427;
 
   navigator.getMedia = (navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
@@ -17,25 +20,6 @@ var Controller = function() {
 
   function init() {
     DB.initiate(__initiateSuccess, __initiateError);
-
-    // navigator.getMedia(
-    //   {
-    //     video: true,
-    //     audio: false
-    //   },
-    //   function(stream) {
-    //     if (navigator.mozGetUserMedia) {
-    //       video.mozSrcObject = stream;
-    //     } else {
-    //       var vendorURL = window.URL || window.webkitURL;
-    //       video.src = vendorURL.createObjectURL(stream);
-    //     }
-    //     video.play();
-    //   },
-    //   function(err) {
-    //     utils.status.show("An error occured! " + err);
-    //   }
-    // );
   }
 
   function __initiateSuccess(inEvent) {
@@ -55,6 +39,7 @@ var Controller = function() {
       video.setAttribute('width', width);
       video.setAttribute('height', height);
       console.log("width x height", width + " x " + height);
+      console.log(" VIDEO width x height", video.videoWidth + " x " + video.videoHeight);
       streaming = true;
     }
   }, false);
@@ -73,6 +58,8 @@ var Controller = function() {
           video.src = vendorURL.createObjectURL(stream);
         }
         video.play();
+        current_anim = Animations.open();
+        nb = 0;
       },
       function(err) {
         utils.status.show("An error occured! " + err);
@@ -85,16 +72,25 @@ var Controller = function() {
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     var data = canvas.toDataURL();
-    console.log("data", data);
+    // console.log("data", data);
     photo.setAttribute('src', data);
     video.className = "transparent";
+    current_anim = Animations.addPhoto([nb, data]);
+    DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
+    nb =+ 1;
+  }
+  function __updateAnimationSuccess() {
+    console.log("YES !");
+  }
+
+  function __updateAnimationError(inError) {
+    console.log("NO !", inError);
   }
 
   // startbutton.addEventListener('click', function(ev){
   //     takepicture();
   //   ev.preventDefault();
   // }, false);
-
 
   return {
     init: init,
