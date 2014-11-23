@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "name": "p2m",
   "description": "p2m will be a stop motion and timelaps web app. Design to work inside the browser of any device.",
-  "type": "web",
+  "type": "privileged",
   "launch_path": "/index.html",
   "icons": {
     "60": "/img/icon60.png",
