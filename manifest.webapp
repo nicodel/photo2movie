@@ -15,6 +15,9 @@
   "permissions": {
     "video-capture": {"description": "Need access to camera in order to take pictures."}
   },
+  "orientation": [
+    "portrait"
+  ],
   "installs_allowed_from": [
     "*"
   ],
