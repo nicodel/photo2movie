@@ -92,7 +92,7 @@ var Controller = function() {
     photo.setAttribute('src', data);
     video.className = "transparent";
     current_anim = Animations.addPhoto([nb, data]);
-    DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
+    // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
     nb =+ 1;
   }
   function __updateAnimationSuccess() {
@@ -112,9 +112,11 @@ var Controller = function() {
   function editorStop() {
     EditorView.stop();
   }
-
   function displayAnimations() {
     DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
+  }
+  function closeAnimation() {
+    DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   }
 
   // startbutton.addEventListener('click', function(ev){
@@ -129,6 +131,7 @@ var Controller = function() {
     editorPlay: editorPlay,
     editorPause: editorPause,
     editorStop: editorStop,
-    displayAnimations: displayAnimations
+    displayAnimations: displayAnimations,
+    closeAnimation: closeAnimation
   }
 }();

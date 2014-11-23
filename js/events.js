@@ -23,6 +23,7 @@ document.getElementById("btn-settings").addEventListener ("click", function() {
 /* Record View exit button */
 document.getElementById("btn-exit").addEventListener ("click", function() {
   console.log("EXIT");
+  Controller.closeAnimation();
   Controller.displayAnimations();
   document.querySelector('x-deck').showCard(0);
 });
