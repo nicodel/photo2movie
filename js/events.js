@@ -33,7 +33,7 @@ document.getElementById("btn-take").addEventListener ("click", function(ev) {
   ev.preventDefault();
 }, false);
 /* Record View open button */
-document.getElementById("btn-open").addEventListener ("click", function() {
+document.getElementById("btn-open-recording").addEventListener ("click", function() {
   console.log("OPEN");
   // document.querySelector('x-deck').showCard(0);
 });
