@@ -4,75 +4,89 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <title>Photo2Movie</title>
-    <link rel="stylesheet" href="lib/brick/brick.min.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- mozilla/brick -->
+    <link rel="stylesheet" href="lib/brick/brick.min.css" />
+
+    <!-- reset -->
+    <link rel="stylesheet" href="css/reset.css"/>
+
+    <!-- fonts -->
+    <link rel="stylesheet" href="css/fonts.css"/>
+
+    <!-- skin -->
+    <link rel="stylesheet" href="css/status.css"/>
+    <link rel="stylesheet" href="css/x-layout.css"/>
+    <link rel="stylesheet" href="css/buttons.css"/>
+
+    <!-- app styles -->
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 
   </head>
   <body>
-    <x-layout>
-      <!-- <header> -->
-        <!-- <x&#45;appbar> -->
-          <!-- <button>Foo</button> -->
-          <!-- <h1>Brick</h1> -->
-          <!-- <button>Bar</button> -->
-        <!-- </x&#45;appbar> -->
-      <!-- </header> -->
-      <section>
+    <!-- <x-layout> -->
+      <!-- <section> -->
         <x-deck>
 
         <!-- Card 0 -->
         <x-card id="home">
-        <h1>TEST</h1>
-        <ul>
-          <li>
-          <img alt="video1" />
-          <p>ceci est video 1</p>
-          </li>
-        </ul>
-        <x-tabbar>
+        <x-layout>
+          <section data-type="animations">
+          <ul id="animations-list">
+            <li>
+                <a id="AN-20141123-075933">
+                <img src="tmp/Rz_100.jpg" />
+                <p>shopping</p>
+              </a>
+            </li>
+            <li>
+              <a id="AN-20141123-065933">
+                <img src="tmp/Mn_104.jpg" />
+                <p>lemon</p>
+              </a>
+            </li>
+          </ul>
+          <button id="btn-new" class="icon icon-new">New</button>
           <button id="btn-settings" class="icon icon-settings">Settings</button>
-        </x-tabbar>
+          </section>
+        </x-layout>
 
         </x-card>
         <!-- Card 1 -->
         <x-card id="settings">
+        <p>Settings</p>
         </x-card>
 
         <!-- Card 2 -->
         <x-card id="recording">
+        <section>
 
           <canvas id="canvas"></canvas>
           <img id="photo" alt="photo">
           <video id="video"></video>
-          <button id="startbutton">Take photo</button>
-
-<!--         <div id="container">
-		      <canvas id="canvas"></canvas>
-		      <img id="photo" alt="photo" />
-		      <video id="video"></video>
-          <button id="startbutton">Take photo</button>
-          <video id="player"></video>
-        </div> -->
+          <button id="btn-exit" class="icon icon-exit">Exit</button>
+          <button id="btn-take" class="icon icon-take">Take photo</button>
+          <button id="btn-open" class="icon icon-open">Edit</button>
+        </section>
         </x-card>
         </x-deck>
-      </section>
-      <!-- <footer> -->
-        <!-- <x&#45;tabbar> -->
-          <!-- <button id="btn&#45;settings" class="icon icon&#45;settings">Settings</button> -->
-        <!-- </x&#45;tabbar> -->
-      <!-- </x&#45;footer> -->
-    </x-layout>
-    <script src="lib/brick/brick.min.js"></script>
-    <!--  script src="js/controller.js"></script> -->
-    <script src="js/app.js"></script>
+      <!-- </section> -->
+    <!-- </x-layout> -->
 
-
-<!--    <script>
-      document.addEventListener('DOMComponentsLoaded', function(){
-        document.querySelector('x-deck').showCard(2);
-      });
-    </script>
- -->
   </body>
+  <!-- librairies -->
+  <script src="lib/brick/brick.min.js"></script>
+  <!-- views -->
+  <script type="text/javascript" src="js/views/status.js"></script>
+  <script type="text/javascript" src="js/views/home-view.js"></script>
+  <!-- models -->
+  <script type="text/javascript" src="js/models/chrono.js"></script>
+  <script type="text/javascript" src="js/models/db.js"></script>
+  <!-- events -->
+  <script type="text/javascript" src="js/events.js"></script>
+  <!-- controller -->
+  <script type="text/javascript" src="js/controller.js"></script>
+  <!-- launcher -->
+  <script type="text/javascript" src="js/app.js"></script>
 </html>

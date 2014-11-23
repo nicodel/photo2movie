@@ -1,5 +1,6 @@
 body, html {
   background: black;
+  color: white;
   font-family: sans-serif;
   height: 100%;
   margin: 0;
@@ -16,9 +17,27 @@ video, img {
   display: block;
   float: left;
 }
-x-card button {
+button#btn-settings,
+button#btn-take,
+button#btn-open,
+button#btn-new,
+button#btn-exit {
   bottom: 10px;
   position: absolute;
+}
+button#btn-take {
+  right: calc(50% - 42px);
+  width: 84px;
+  height: 84px;
+  bottom: 10%;
+}
+button#btn-settings,
+button#btn-open {
+  right: 0;
+}
+button#btn-new,
+button#btn-exit {
+  left: 0;
 }
 .transparent {
   zoom: 1;
