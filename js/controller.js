@@ -8,12 +8,12 @@ var Controller = function() {
       canvas       = document.querySelector('#canvas'),
       photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#btn-take'),
-      width        = 640,
-      // width        = 320, //Flame
+      // width        = 640,
+      width        = 320, //Flame
       // height       = width * 0.75;
       // height       = 240; // Webcam
-      // height       = 427; //Flame
-      height       = 480;
+      height       = 427; //Flame
+      // height       = 480;
 
   navigator.getMedia = (navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
