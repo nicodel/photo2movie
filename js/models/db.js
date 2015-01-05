@@ -1,292 +1,172 @@
-"use strict;"
-var DB = function() {
-  window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();
+/* jshint browser: true, devel: true, strict: true */
+/* exported DB */
 
-  var DB_NAME = "p2m";
-  var DB_VERSION = 1; // Use a long long for this value (don't use a float)
-  var DB_STORE_ANIMATIONS = "animations";
-  var DB_STORE_SETTINGS = "settings";
+/**
+ *
+ * @param {array} db_info {"name": {String}, "version", {Long}}
+ * @param {array} stores [{"name: {String},
+ *                          "key": {String},
+ *                          "increment": {Boolean},
+ *                          "index": [{"name": {String},
+ *                                    "key": {String},
+ *                                    "unique", {Boolean}
+ *                                    },
+ *                                    {}]
+ *                        }, {}]
+ */
+var DB = function(db_info, stores) {
+  "use strict";
 
-  var DEFAULT_CONFIG = [
-    {"key":"language", "value":"none"},
-    {"key":"interval", "value":"none"}
-  ];
-
-  function initiate(successCallback, errorCallback) {
-    if (typeof(successCallback) === "function") {
-      // DB.reset_app(DB_NAME);
-      var req = window.indexedDB.open(DB_NAME, DB_VERSION);
-      req.onsuccess = function(e) {
-        // console.log("DB created successfully: ", req.result);
-        db = req.result;
-        successCallback(req.result);
-        db.onabort = function(e) {
-          db.close();
-          db = null;
-        };
-      };
-      req.onerror = function(e) {
-        console.error("error on initiate DB: ", e.target.error.name);
-        errorCallback(e.target.error.name);
-        g_error = true;
-      };
-      req.onupgradeneeded = function(event) {
-        //
-        // Create animations store as:
-        //
-        var store = req.result.createObjectStore(DB_STORE_ANIMATIONS, {keyPath:"id", autoIncrement: true});
-        store.createIndex("animaid", "animaid", {unique: true});
-
-        //
-        // Create settings store as:
-        //
-        var store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath: "key"});
-        store.createIndex("key", "key", {unique: true});
-        store.createIndex("value", "value", {unique: false});
-      };
-    } else  {
-      errorCallback("initiate() successCallback should be a function");
-    }
+  if (!db_info || !stores) {
+    ev_error.notify("Set parameters: db_info and stores");
+  } else if (!db_info.name) {
+    ev_error.notify("Set db_info.name");
+  } else if (!db_info.version || !Number.isInteger(db_info.version)) {
+    ev_error.notify("db_info.version should be an Integer");
+  } else {
+    __initiate();
   }
-  function addAnimation(successCallback, errorCallback, inAnimation) {
-    if (typeof successCallback === "function") {
 
-      var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
-      tx.oncomplete = function(e) {
-        // console.log("addAnimation transaction completed !");
-      };
-      tx.onerror = function(e) {
-        // console.error("addAnimation transaction error: ", tx.error.name);
-        errorCallback(e.error.name);
-      };
-      var store = tx.objectStore(DB_STORE_ANIMATIONS);
-      var req = store.add(inAnimation);
-      req.onsuccess = function(e) {
-        // console.log("addAnimation store store.add successful");
-        successCallback(inAnimation.name);
-        // ??? going back to home ???
-      };
-      req.onerror = function(e) {
-        // console.error("addAnimation store store.add error: ", req.error.name);
-        errorCallback(req.error.name);
-      };
-    } else  {
-      errorCallback("addAnimation successCallback should be a function");
-    }
-  }
-  function addPhoto(successCallback, errorCallback, inAnimation) {
-    if (typeof successCallback === "function") {
+  var db;
+  
+  var ev_initiated = new Event(this);
+  var ev_error = new Event(this);
+  var ev_item_added = new Event(this);
+  var ev_item_removed = new Event(this);
+  var ev_item_updated = new Event(this);
 
-      var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
-      tx.oncomplete = function(e) {
-        // console.log("addAnimation transaction completed !");
+  var __initiate = function() {
+    var req = window.indexedDB.open(db_info.name, db_info.version);
+    req.onsuccess = function() {
+      db = req.result;
+      ev_initiated.notify();
+      db.onabort = function() {
+        db.close();
+        db = null;
       };
-      tx.onerror = function(e) {
-        // console.error("addAnimation transaction error: ", tx.error.name);
-        errorCallback(e.error.name);
-      };
-      var store = tx.objectStore(DB_STORE_ANIMATIONS);
-      var req = store.get(inAnimation.id);
-      req.onsuccess = function(e) {
-        var req2 = store.put(inAnimation);
-        req2.onsuccess = function(e) {
-          console.log("animation successfully updated");
-        }
-        req2.onerror = function(e) {
-          console.log("failure on saving animation");
-          errorCallback(e.error.name);
-        }
-      };
-      req.onerror = function(e) {
-        errorCallback(req.error.name);
-      };
-    } else  {
-      errorCallback("addPhoto successCallback should be a function");
-    }
-  }
-  function getAnimations(successCallback, errorCallback) {
-    if (typeof successCallback === "function") {
-      var all_animations = [];
-      var tx = db.transaction("animations");
-      var store = tx.objectStore("animations");
-      var req = store.openCursor();
-      req.onsuccess = function(e) {
-        var cursor = e.target.result;
-        // console.log("getAnimations store.openCursor successful !", cursor);
-        if (cursor) {
-          // console.log("cursor.value", cursor.value);
-          all_animations.push(cursor.value);
-          cursor.continue();
-        } else{
-          // console.log("got all animations: ", all_animations);
-          successCallback(all_animations);
-        }
-      };
-      req.onerror = function(e) {console.error("getAnimations store.openCursor error: ", e.error.name);};
-    } else {
-      errorCallback("getAnimations successCallback should be a function");
-    }
-  }
-  function reset_app() {
-    var req = window.indexedDB.deleteDatabase(DB_NAME);
+    };
     req.onerror = function(e) {
-      console("reset error: ", e.error.name);
+      ev_error.notify(e.target.error.name);
     };
-    req.onsuccess = function(e) {
-      console.log(DB_NAME + " deleted successful !");
-    };
-  }
-  function deleteAnimation(successCallback, errorCallback, inAnimation) {
-    if (typeof successCallback === "function") {
-      var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
-      tx.oncomplete = function(e) {
-        console.log("deleteAnimation transaction completed !");
-      };
-      tx.onerror = function(e) {
-        console.error("deleteAnimation transaction error: ", tx.error.name);
-        errorCallback(x.error.name);
-      };
-      var store = tx.objectStore(DB_STORE_ANIMATIONS);
-      var req = store.delete(inAnimation.id);
-      req.onsuccess = function(e) {
-        console.log("deleteAnimation store store.delete successful");
-        successCallback(inAnimation.name);
-      };
-      req.onerror = function(e) {
-        console.error("deleteAnimation store store.delete error: ", req.error.name);
-        errorCallback(req.error.name);
-      };
-    } else  {
-      errorCallback("deleteAnimation successCallback should be a function");
-    }
-  }
-  function getConfig(successCallback, errorCallback) {
-    if (typeof successCallback === "function") {
-      var settings = [];
-      var tx = db.transaction(DB_STORE_SETTINGS);
-      var store = tx.objectStore(DB_STORE_SETTINGS);
-      var req = store.openCursor();
-      req.onsuccess = function(e) {
-        var cursor = e.target.result;
-        if (cursor) {
-          settings.push(cursor.value);
-          cursor.continue();
-        } else {
-          if (settings.length === 0) {
-            console.log("no config found, loading the default one !")
-            settings = DEFAULT_CONFIG;
-            __saveDefaultConfig();
-          };
-          var prettySettings = {};
-          for (var i = 0; i < settings.length; i++) {
-            prettySettings[settings[i].key] = settings[i].value;
-          };
-          console.log("loaded settings are:", prettySettings);
-          successCallback(prettySettings);
-        }
-      };
-      req.onerror = function(e) {console.error("getConfig store.openCursor error: ", e.error.name);};
-    } else {
-      errorCallback("getConfig() successCallback should be a function");
-    }
-  }
-  // function saveMap(successCallback, errorCallback, inAnimation) {
-  //   if (typeof successCallback === "function") {
-  //     var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
-  //     var store = tx.objectStore(DB_STORE_ANIMATIONS);
-  //     var req = store.get(inAnimation.id);
-  //     req.onsuccess = function(e) {
-  //       var req2 = store.put(inAnimation);
-  //       req2.onsuccess = function(e) {
-  //         console.log("successfully updated");
-  //       }
-  //       req2.onerror = function(e) {
-  //         console.log("failure on saving map");
-  //         errorCallback(e.error.name);
-  //       }
-  //     }
-  //   } else  {
-  //     errorCallback("addTrack successCallback should be a function");
-  //   }
-  // }
-  function updateAnimation(successCallback, errorCallback, inAnimation) {
-    if (typeof successCallback === "function") {
-      var tx = db.transaction(DB_STORE_ANIMATIONS, "readwrite");
-      var store = tx.objectStore(DB_STORE_ANIMATIONS);
-      var req = store.get(inAnimation.id);
-      req.onsuccess = function(e) {
-        var req2 = store.put(inAnimation);
-        req2.onsuccess = function(e) {
-          console.log("successfully updated");
-          successCallback();
-        }
-        req2.onerror = function(e) {
-          console.log("failure on updating");
-          errorCallback(e.error.name);
+    req.onupgradeneeded = function() {
+      for (var i = 0; i < stores.length; i++) {
+        var s = stores[i];
+        var store = req.result.createObjectStore(
+            s[i].name,
+            {keyPath: s.key, autoIncrement: s.increment}
+            );
+        var indexes = stores[i].index;
+        for (var j = 0; j < indexes.length; j++) {
+          var index = indexes[i];
+          store.createIndex(
+              index.name,
+              index.key,
+              {unique: index.unique}
+              );
         }
       }
-    } else  {
-      errorCallback("updateAnimation successCallback should be a function");
-    }
-  }
-  function __saveDefaultConfig() {
-    console.log("saving default config");
-    var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
-    tx.oncomplete = function(e) {
-      // console.log("successful creating default config !");
+    };
+  };
+
+  /**
+   * Retreive an item from a Db Store
+   * @param: {string} inItem
+   * @param: (string} inStore
+   */
+  var addItem = function(inItem, inStore) {
+    var tx = db.transaction(inStore, "readwrite");
+    tx.oncomplete = function() {
     };
     tx.onerror = function(e) {
-      // console.error("default config transaction error: ", tx.error.name);
-      errorCallback(x.error.name);
+      ev_error.notify(e.error.name);
     };
-    var store = tx.objectStore([DB_STORE_SETTINGS]);
-    for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
-      var req = store.add(DEFAULT_CONFIG[i]);
-      req.onsuccess = function(e) {
-        // console.log("added: ", e.target.result);
-      };
-      req.onerror = function(e) {
-        // console.error("error: ", req.error.name);
-      };
+    var store = tx.objectStore(inStore);
+    var req = store.add(inItem);
+    req.onsuccess = function() {
+      ev_item_added.notify();
     };
-  }
+    req.onerror = function() {
+      ev_error.notify(req.error.name);
+    };
+  };
 
-  function updateConfig(successCallback, errorCallback, inKey, inValue) {
-    if (typeof successCallback === "function") {
-      var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
-      var store = tx.objectStore(DB_STORE_SETTINGS);
-      var req = store.get(inKey);
-      console.log("req", req);
+  /**
+   * Update an item from a Db Store
+   * @param: {string} inItem
+   * @param: (string} inStore
+   */
+  var updateItem = function(inItem, inStore) {
+    var tx = db.transaction(inStore, "readwrite");
+    var store = tx.objectStore(inStore);
+    var req = store.get(inItem.id);
+    req.onsuccess = function() {
+      var req2 = store.put(inItem);
+      req2.onsuccess = function() {
+        ev_item_updated.notify();
+      };
+      req2.onerror = function(e) {
+        ev_error.notify(e.error.name);
+      };
+    };
+  };
+
+  /**
+   * Remove an item from a Db Store
+   * @param: {string} inItem
+   * @param: (string} inStore
+   */
+  var removeItem = function(inItem, inStore) {
+    var tx = db.transaction(inStore, "readwrite");
+    var store = tx.objectStore(inStore);
+    var req = store.delete(inItem.id);
+    req.onsuccess = function() {
+      ev_item_removed.notify();
+    };
+    req.onerror = function() {
+      ev_error.notify(req.error.name);
+    };
+  };
+
+  /**
+   * Retreive all items from a Db Store
+   * @param: {string} inStore
+   * @return: {function} callback(items);
+   */
+  var getAllItems = function(inStore, callback) {
+    if (typeof callback === "function") {
+      var items = [];
+      var tx = db.transaction(inStore);
+      var store = tx.objectStore(inStore);
+      var req = store.openCursor();
       req.onsuccess = function(e) {
-        req.result.value = inValue;
-        console.log("req.result", req.result);
-        var req2 = store.put(req.result);
-        console.log("req2", req2);
-        req2.onsuccess = function(e) {
-          console.log("successfully updated");
-          successCallback();
+        var cursor = e.target.result;
+        if (cursor) {
+          items.push(cursor.value);
+          cursor.continue();
+        } else {
+          callback(items);
         }
-        req2.onerror = function(e) {
-          errorCallback(e.error.name);
-        }
-      }
+      };
       req.onerror = function(e) {
-        errorCallback(e.error.name);
-      }
-    } else  {
-      errorCallback("updateConfig successCallback should be a function");
+        callback(e.error.name);
+      };
+    } else {
+      console.error("callback should be a function");
     }
-  }
+  };
 
   return {
-    initiate: initiate,
-    addAnimation: addAnimation,
-    getAnimations: getAnimations,
-    deleteAnimation: deleteAnimation,
-    reset_app: reset_app,
-    getConfig: getConfig,
-    updateConfig: updateConfig,
-    // saveMap: saveMap,
-    updateAnimation: updateAnimation
+    /* Events */
+    initiated:        ev_initiated,
+    error:            ev_error,
+    item_added:       ev_item_added,
+    item_removed:     ev_item_removed,
+    item_updated:     ev_item_updated,
+    /* Functions */
+    addItem:    addItem,
+    updateItem:   updateItem,
+    removeItem:   removeItem,
+    getAllItems:  getAllItems
   };
-}();
+
+};
