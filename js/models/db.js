@@ -17,7 +17,7 @@
 var DB = function(db_info, stores) {
   "use strict";
 
-  if (!db_info || !stores) {
+/*  if (!db_info || !stores) {
     ev_error.notify("Set parameters: db_info and stores");
   } else if (!db_info.name) {
     ev_error.notify("Set db_info.name");
@@ -25,7 +25,7 @@ var DB = function(db_info, stores) {
     ev_error.notify("db_info.version should be an Integer");
   } else {
     __initiate();
-  }
+  }*/
 
   var db;
   
@@ -35,11 +35,12 @@ var DB = function(db_info, stores) {
   var ev_item_removed = new Event(this);
   var ev_item_updated = new Event(this);
 
-  var __initiate = function() {
+  // var __initiate = function() {
     var req = window.indexedDB.open(db_info.name, db_info.version);
     req.onsuccess = function() {
       db = req.result;
-      ev_initiated.notify();
+      console.log("initiated", db);
+      ev_initiated.notify(db);
       db.onabort = function() {
         db.close();
         db = null;
@@ -66,7 +67,7 @@ var DB = function(db_info, stores) {
         }
       }
     };
-  };
+  // };
 
   /**
    * Retreive an item from a Db Store
@@ -132,7 +133,7 @@ var DB = function(db_info, stores) {
    * @param: {string} inStore
    * @return: {function} callback(items);
    */
-  var getAllItems = function(inStore, callback) {
+  var getAllStore = function(inStore, callback) {
     if (typeof callback === "function") {
       var items = [];
       var tx = db.transaction(inStore);
@@ -155,6 +156,19 @@ var DB = function(db_info, stores) {
     }
   };
 
+  /**
+   * Reset the whole IndexedDB database
+   */
+  var resetDb = function(inName) {
+    var req = window.indexedDB.deleteDatabase(inName);
+    req.onerror = function(e) {
+      console("reset error: ", e.error.name);
+    };
+    req.onsuccess = function() {
+      console.log(inName + " deleted successful !");
+    }; 
+  };
+
   return {
     /* Events */
     initiated:        ev_initiated,
@@ -166,7 +180,8 @@ var DB = function(db_info, stores) {
     addItem:    addItem,
     updateItem:   updateItem,
     removeItem:   removeItem,
-    getAllItems:  getAllItems
+    getAllStore:  getAllStore,
+    resetDB:      resetDb
   };
 
 };
