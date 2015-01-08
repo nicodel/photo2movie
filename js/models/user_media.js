@@ -31,12 +31,22 @@ var UserMedia = function(elements) {
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   });
 
+  video.addEventListener("loadeddata", function() {
+    var camera_w = video.videoWidth;
+    var camera_h = video.videoHeight;
+    console.log("video", video.videoWidth);
+    console.log("Camera", camera_w + " x " + camera_h);
+    var screen_w = screen.width;
+    var screen_h = screen.height;
+    console.log("Screen", screen_w + " x " + screen_h);
+  }, false);
+
   video.addEventListener("canplay", function(){
     if (!streaming) {
       video.setAttribute("width", width);
       video.setAttribute("height", height);
-      console.log("width x height", width + " x " + height);
-      // console.log(" VIDEO width x height", video.videoWidth + " x " + video.videoHeight);
+      // console.log("width x height", width + " x " + height);
+      console.log(" VIDEO width x height", video.videoWidth + " x " + video.videoHeight);
       streaming = true;
     }
   }, false);
