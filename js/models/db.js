@@ -3,15 +3,15 @@
 
 /**
  *
- * @param {array} db_info {"name": {String}, "version", {Long}}
- * @param {array} stores [{"name: {String},
- *                          "key": {String},
- *                          "increment": {Boolean},
- *                          "index": [{"name": {String},
- *                                    "key": {String},
- *                                    "unique", {Boolean}
- *                                    },
- *                                    {}]
+ * @param {array} db_info {name: {String}, version: {Long}}
+ * @param {array} stores [{name: {String},
+ *                        key: {String},
+ *                        increment: {Boolean},
+ *                        index: [{name: {String},
+ *                                key: {String},
+ *                                unique: {Boolean}
+ *                                },
+ *                        {}]
  *                        }, {}]
  */
 var DB = function(db_info, stores) {
