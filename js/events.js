@@ -7,11 +7,11 @@
 /*----------------- Home View -----------------*/
 /* Home View new button */
 // document.querySelector("#btn-new").addEventListener ("click", function () {
-document.getElementById("btn-new").addEventListener ("click", function() {
+/*document.getElementById("btn-new").addEventListener ("click", function() {
   console.log("NEW");
   Controller.initiateCamera();
   document.querySelector('x-deck').showCard(2);
-});
+});*/
 
 /* Home View settings button */
 document.getElementById("btn-settings").addEventListener ("click", function() {
