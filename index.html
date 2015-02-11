@@ -29,44 +29,44 @@
         <x-deck>
 
         <!-- Card 0 -->
-        <x-card id="home">
+        <x-card id="List">
         <x-layout>
           <section data-type="animations">
           <ul id="animations-list"></ul>
-          <button id="btn-new" class="icon icon-new">New</button>
-          <button id="btn-settings" class="icon icon-settings">Settings</button>
+          <button id="btn-list-new" class="icon icon-new icon-left">New</button>
+          <button id="btn-list-settings" class="icon icon-settings icon-right">Settings</button>
           </section>
         </x-layout>
 
         </x-card>
         <!-- Card 1 -->
-        <x-card id="settings">
+        <x-card id="Settings">
         <p>Settings</p>
         </x-card>
 
         <!-- Card 2 -->
-        <x-card id="recording">
+        <x-card id="Recorder">
         <section>
 
           <canvas id="canvas"></canvas>
           <img id="photo" alt="photo">
           <video id="video"></video>
-          <button id="btn-exit" class="icon icon-exit">Exit</button>
-          <button id="btn-take" class="icon icon-take">Take photo</button>
-          <button id="btn-open-recording" class="icon icon-open">Edit</button>
+          <button id="btn-recorder-back" class="icon icon-exit icon-left">Exit</button>
+          <button id="btn-recorder-take-photo" class="icon icon-take">Take photo</button>
+          <button id="btn-recorder-edit" class="icon icon-open">Edit</button>
         </section>
         </x-card>
 
         <!-- Card 3 -->
-        <x-card id="Anim View">
+        <x-card id="Player">
         <section>
           <p id="anim-title"></p>
           <img id="video-player" />
-          <button id="btn-back-player" class="icon icon-back">Back</button>
-          <button id="btn-play" class="icon icon-play">Play</button>
+          <button id="btn-back-player" class="icon icon-back icon-left">Back</button>
+          <button id="btn-play" class="icon icon-play icon-left">Play</button>
           <button id="btn-pause" class="icon icon-pause">Pause</button>
           <button id="btn-stop" class="icon icon-stop">Stop</button>
-          <button id="btn-open" class="icon icon-open">Edit</button>
+          <button id="btn-open" class="icon icon-open icon-right">Edit</button>
         </section>
         </x-card>
 

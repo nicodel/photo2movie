@@ -1,6 +1,5 @@
 /* jshint strict: true, browser: true, devel: true */
 /* exported EditorView */
-/* globals Controller */
 
 var EditorView = function() {
   "use strict";
@@ -11,7 +10,7 @@ var EditorView = function() {
 
   var ev_exit = new Event(this);
   
-  document.getElementById("btn-exit").addEventListener ("click", function() {
+  document.getElementById("btn-recorder-back").addEventListener ("click", function() {
     console.log("EXIT");
     // Controller.displayAnimations();
     ev_exit.notify();

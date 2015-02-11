@@ -13,7 +13,7 @@ var AnimationsView = function() {
       index: e.target.selectedIndex
     });
   });
-  document.getElementById("btn-new").addEventListener('click', function () {
+  document.getElementById("btn-list-new").addEventListener('click', function () {
     ev_new_clicked.notify();
   });
 

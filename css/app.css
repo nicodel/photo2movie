@@ -17,14 +17,15 @@ video, img {
   display: block;
   float: left;
 }
-button#btn-settings,
+/*button#btn-settings,
 button#btn-take,
 button#btn-open,
 button#btn-new,
 button#btn-exit,
 button#btn-play,
 button#btn-stop,
- button#btn-pause{
+ button#btn-pause{*/
+section button.icon {
   bottom: 10px;
   position: absolute;
 }
@@ -34,14 +35,16 @@ button#btn-take {
   height: 84px;
   bottom: 10%;
 }
-button#btn-settings,
-button#btn-open {
+/* button#btn-settings, */
+/* button#btn-open { */
+section button.icon-right {
   right: 0;
 }
-button#btn-new,
-button#btn-exit,
-button#btn-play,
-button#btn-back-player {
+/* button#btn-new, */
+/* button#btn-exit, */
+/* button#btn-play, */
+/* button#btn-back-player { */
+section button.icon-left {
   left: 0;
 }
 button#btn-pause {
