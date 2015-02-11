@@ -87,7 +87,7 @@ var Controller = function() {
       video_container: document.getElementById("video"),
       photo_container: document.getElementById("photo"),
       canvas: document.getElementById("canvas"),
-      take_btn: document.getElementById("btn-take")
+      take_btn: document.getElementById("btn-recorder-take-photo")
     });
     AnimModel = new Animation();
     console.log("un nouveau !");

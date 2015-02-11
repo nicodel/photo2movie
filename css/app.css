@@ -29,7 +29,7 @@ section button.icon {
   bottom: 10px;
   position: absolute;
 }
-button#btn-take {
+button#btn-recorder-take-photo {
   right: calc(50% - 42px);
   width: 84px;
   height: 84px;
