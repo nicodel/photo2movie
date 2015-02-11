@@ -1,9 +1,22 @@
-"use strict"
+/* jshint strict: true, browser: true, devel: true */
+/* exported EditorView */
+/* globals Controller */
+
 var EditorView = function() {
+  "use strict";
   var anim_played,
       timeoutID;
   var player = document.getElementById("video-player");
   var i = 1;
+
+  var ev_exit = new Event(this);
+  
+  document.getElementById("btn-exit").addEventListener ("click", function() {
+    console.log("EXIT");
+    // Controller.displayAnimations();
+    ev_exit.notify();
+    document.querySelector('x-deck').showCard(0);
+  });
 
   function display(inAnim) {
     anim_played = inAnim;
@@ -32,16 +45,18 @@ var EditorView = function() {
   //   };
   // }
 
-  function __next(inPhoto) {
+  /*function __next(inPhoto) {
     console.log("display", inPhoto);
     player.src = inPhoto;
     return true;
-  }
+  }*/
 
   return {
-    display: display,
-    play: play,
-    stop: stop,
-    pause: pause
-  }
+    exit:     ev_exit,
+
+    display:  display,
+    play:     play,
+    stop:     stop,
+    pause:    pause
+  };
 }();

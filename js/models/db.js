@@ -53,17 +53,17 @@ var DB = function(db_info, stores) {
       for (var i = 0; i < stores.length; i++) {
         var s = stores[i];
         var store = req.result.createObjectStore(
-            s[i].name,
+            s.name,
             {keyPath: s.key, autoIncrement: s.increment}
             );
         var indexes = stores[i].index;
         for (var j = 0; j < indexes.length; j++) {
-          var index = indexes[i];
+          var index = indexes[j];
           store.createIndex(
-              index.name,
-              index.key,
-              {unique: index.unique}
-              );
+            index.name,
+            index.key,
+            {unique: index.unique}
+          );
         }
       }
     };

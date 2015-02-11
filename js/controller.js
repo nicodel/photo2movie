@@ -183,6 +183,10 @@ var Controller = function() {
     EditorView.stop();
   }
 
+  EditorView.exit.attach(function() {
+    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
+  });
+
 /*  function displayAnimations() {
     DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
   }*/

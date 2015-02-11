@@ -34,7 +34,6 @@ var UserMedia = function(elements) {
   video.addEventListener("loadeddata", function() {
     var camera_w = video.videoWidth;
     var camera_h = video.videoHeight;
-    console.log("video", video.videoWidth);
     console.log("Camera", camera_w + " x " + camera_h);
     var screen_w = screen.width;
     var screen_h = screen.height;
