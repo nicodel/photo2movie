@@ -23,8 +23,13 @@ var Animation = function(inAnim) {
   } else {
     Anim = inAnim;
   }
+  console.log("Anim", Anim);
 
-  var addPhoto = function() {};
+  var addPhoto = function(inPhoto) {
+    Anim.data.push(inPhoto);
+    console.log("Anim", Anim);
+    ev_photo_added.notify({anim:Anim});
+  };
 
   var removePhoto = function() {};
 

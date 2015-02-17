@@ -58,18 +58,7 @@ var Controller = function() {
     db_p2m.getAllStore(DB_CONFIG_STORE, function(inConfig) {
       config = inConfig;
     });
-    db_p2m.getAllStore(DB_ANIMS_STORE, function(inAnims) {
-      AnimsModel = new Animations(inAnims);
-      AnimationsView.display(inAnims);
-      AnimsModel.item_added.attach(function(items) {
-        AnimationsView.display(items);
-      });
-      AnimsModel.item_removed.attach(function(items) {
-        AnimationsView.display(items);
-      });
-      /*xdeck.showCard(3);
-      EditorView.display(inAnims);*/
-    });
+    __getAllAnimations();
   
   });
 
@@ -83,75 +72,36 @@ var Controller = function() {
   });
   AnimationsView.new_clicked.attach(function() {
     // addItem();
+    AnimModel = new Animation();
+    console.log("un nouveau !");
+    xdeck.showCard(2);
+
     Camera = new UserMedia({
       video_container: document.getElementById("video"),
       photo_container: document.getElementById("photo"),
       canvas: document.getElementById("canvas"),
       take_btn: document.getElementById("btn-recorder-take-photo")
     });
-    AnimModel = new Animation();
-    console.log("un nouveau !");
-    xdeck.showCard(2);
+    Camera.photo_taken.attach(function() {
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+      var data = canvas.toDataURL();
+      console.log("data", data);
+      photo.setAttribute('src', data);
+      video.className = "transparent";
+      AnimModel.addPhoto([nb, data]);
+      // console.log("current_anim", current_anim);
+      // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
+      // db_p2m.updateItem(current_anim, DB_ANIMS_STORE);
+      nb =+ 1;
+    });
+
+    AnimModel.photo_added.attach(function(sender, args) {
+      console.log("args.anim", args.anim);
+      db_p2m.updateItem(args.anim, DB_ANIMS_STORE);
+    });
   });
-
-/*  function __initiateSuccess(inEvent) {
-    DB.getConfig(__getConfigSuccess, __getConfigError);
-    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
-  }
-  function __getAnimationsSuccess(inAnimations) {
-    HomeView.display(inAnimations, __displayAnim);
-  }*/
-
-/*  function __displayAnim(inAnim) {
-    console.log("inAnim display: ", inAnim);
-    // displayed_track = inAnim;
-    document.querySelector('x-deck').showCard(3)
-    EditorView.display(inAnim);
-  }*/
-
-/*  function __getAnimationsError(inError) {}
-
-  function __initiateError(inEvent) {
-    utils.status.show(inEvent);
-  }
-  function __getConfigSuccess(inSettings) {
-    settings = inSettings;
-    // ConfigView.update(inSettings);
-  }
-  function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
-*/
-/*  video.addEventListener('canplay', function(){
-    if (!streaming) {
-      video.setAttribute('width', width);
-      video.setAttribute('height', height);
-      console.log("width x height", width + " x " + height);
-      console.log(" VIDEO width x height", video.videoWidth + " x " + video.videoHeight);
-      streaming = true;
-    }
-  }, false);*/
-
-/*  function initiateCamera() {
-    navigator.getMedia(
-      {
-        video: true,
-        audio: false
-      },
-      function(stream) {
-        if (navigator.mozGetUserMedia) {
-          video.mozSrcObject = stream;
-        } else {
-          var vendorURL = window.URL || window.webkitURL;
-          video.src = vendorURL.createObjectURL(stream);
-        }
-        video.play();
-        current_anim = Animations.open();
-        nb = 0;
-      },
-      function(err) {
-        utils.status.show("An error occured! " + err);
-      }
-    );
-  }*/
 
   function takePicture() {
     canvas.width = width;
@@ -162,17 +112,10 @@ var Controller = function() {
     photo.setAttribute('src', data);
     video.className = "transparent";
     current_anim = Animations.addPhoto([nb, data]);
-    DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
+    // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
+    db_p2m.updateItem(current_anim, DB_ANIMS_STORE);
     nb =+ 1;
   }
-  function __updateAnimationSuccess() {
-    console.log("YES !");
-  }
-
-  function __updateAnimationError(inError) {
-    console.log("NO !", inError);
-  }
-
   function editorPlay() {
     EditorView.play();
   }
@@ -184,17 +127,23 @@ var Controller = function() {
   }
 
   EditorView.exit.attach(function() {
-    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
   });
+  function __getAllAnimations() {
+    db_p2m.getAllStore(DB_ANIMS_STORE, function(inAnims) {
+      AnimsModel = new Animations(inAnims);
+      AnimationsView.display(inAnims);
+      AnimsModel.item_added.attach(function(items) {
+        AnimationsView.display(items);
+      });
+      AnimsModel.item_removed.attach(function(items) {
+        AnimationsView.display(items);
+      });
+    });
+  }
 
 /*  function displayAnimations() {
     DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
   }*/
-
-  // startbutton.addEventListener('click', function(ev){
-  //     takepicture();
-  //   ev.preventDefault();
-  // }, false);
 
   return {
     // init: init,
