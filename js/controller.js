@@ -103,6 +103,11 @@ var Controller = function() {
     });
   });
 
+  AnimationsView.anim_clicked.attach(function(sender, args) {
+    console.log("clicked on", args);
+  });
+
+
   function takePicture() {
     canvas.width = width;
     canvas.height = height;

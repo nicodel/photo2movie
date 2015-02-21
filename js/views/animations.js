@@ -42,6 +42,7 @@ var AnimationsView = function() {
         li.appendChild(a);
         list.appendChild(li);
         a.addEventListener("click", function() {
+          console.log("animation clicked", item);
           ev_anim_clicked.notify(item);
         });
       }
@@ -50,6 +51,7 @@ var AnimationsView = function() {
   return {
     list_modified:  ev_list_modified,
     new_clicked:    ev_new_clicked,
+    anim_clicked:   ev_anim_clicked,
     show:           show,
     display:        display
   };

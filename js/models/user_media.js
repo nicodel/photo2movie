@@ -7,8 +7,10 @@ var UserMedia = function(elements) {
   var vendorURL;
   var streaming = false;
 
-  var width = 640;
-  var height = 480;
+  // var width = 640;
+  // var height = 480;
+  var width = 0;
+  var height = 0;
 
   var ev_photo_taken = new Event(this);
   var ev_error = new Event(this);
@@ -31,12 +33,14 @@ var UserMedia = function(elements) {
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   });
 
-  video.addEventListener("loadeddata", function() {
+  video.addEventListener("loadedmetadata", function() {
     var camera_w = video.videoWidth;
     var camera_h = video.videoHeight;
     console.log("Camera", camera_w + " x " + camera_h);
     var screen_w = screen.width;
     var screen_h = screen.height;
+    width = screen.videoWidth;
+    height = screen.videoHeight;
     console.log("Screen", screen_w + " x " + screen_h);
   }, false);
 

@@ -16,6 +16,7 @@ video, img {
   position: fixed;
   display: block;
   float: left;
+  left: -50%;
 }
 /*button#btn-settings,
 button#btn-take,
