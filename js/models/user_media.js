@@ -33,7 +33,7 @@ var UserMedia = function(elements) {
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   });
 
-  video.addEventListener("loadeddata", function() {
+/*  video.addEventListener("loadeddata", function() {
     var camera_w = video.videoWidth;
     var camera_h = video.videoHeight;
     console.log("Camera", camera_w + " x " + camera_h);
@@ -42,7 +42,7 @@ var UserMedia = function(elements) {
     // width = screen.videoWidth;
     // height = screen.videoHeight;
     console.log("Screen", screen_w + " x " + screen_h);
-  }, false);
+  }, false);*/
 
   video.addEventListener("canplay", function(){
     if (!streaming) {
