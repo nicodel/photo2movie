@@ -7,10 +7,10 @@ var UserMedia = function(elements) {
   var vendorURL;
   var streaming = false;
 
-  // var width = 640;
-  // var height = 480;
-  var width = 0;
-  var height = 0;
+  // var width = "320px";  //Flame
+  // var height = "539px"; //Flame
+  var width = window.innerWidth;
+  var height = window.innerHeight;
 
   var ev_photo_taken = new Event(this);
   var ev_error = new Event(this);
@@ -33,23 +33,22 @@ var UserMedia = function(elements) {
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   });
 
-  video.addEventListener("loadedmetadata", function() {
+  video.addEventListener("loadeddata", function() {
     var camera_w = video.videoWidth;
     var camera_h = video.videoHeight;
     console.log("Camera", camera_w + " x " + camera_h);
     var screen_w = screen.width;
     var screen_h = screen.height;
-    width = screen.videoWidth;
-    height = screen.videoHeight;
+    // width = screen.videoWidth;
+    // height = screen.videoHeight;
     console.log("Screen", screen_w + " x " + screen_h);
   }, false);
 
   video.addEventListener("canplay", function(){
     if (!streaming) {
-      video.setAttribute("width", width);
       video.setAttribute("height", height);
+      // video.setAttribute("width", width);
       // console.log("width x height", width + " x " + height);
-      console.log(" VIDEO width x height", video.videoWidth + " x " + video.videoHeight);
       streaming = true;
     }
   }, false);

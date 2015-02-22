@@ -30,8 +30,10 @@ x-layout > [data-type="animations"] ul li img {
 }
 
 x-layout > [data-type="animations"] ul li p {
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   color: white;
+  padding-left: 0;
+  text-align: center;
 }
 
 
