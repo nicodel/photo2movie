@@ -24,8 +24,8 @@ var AnimationsView = function() {
   var display = function (items) {
     var list = document.getElementById("animations-list");
     list.innerHTML = "";
-    var p = document.createElement("p");
     if (items.length === 0) {
+      var p = document.createElement("p");
       p.id = "empty-anims";
       p.innerHTML = "No animations yet!";
       list.appendChild(p);
@@ -37,8 +37,9 @@ var AnimationsView = function() {
         var img = document.createElement("img");
         img.src = item.data[0][1];
         a.appendChild(img);
-        p.innerHTML = item.name;
-        a.appendChild(p);
+        var pp = document.createElement("p");
+        pp.innerHTML = item.name;
+        a.appendChild(pp);
         li.appendChild(a);
         list.appendChild(li);
         a.addEventListener("click", function() {
