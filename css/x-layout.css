@@ -20,12 +20,14 @@ x-layout > [data-type="animations"] ul {
 }
 
 x-layout > [data-type="animations"] ul li {
-  padding: 20px;
+  margin: 20px;
   display: inline-block;
 }
 
 x-layout > [data-type="animations"] ul li img {
-  width: 100px;
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
   position: inherit;
 }
 
@@ -34,6 +36,8 @@ x-layout > [data-type="animations"] ul li p {
   color: white;
   padding-left: 0;
   text-align: center;
+  max-width: 7rem;
+  word-wrap: break-word;
 }
 
 
