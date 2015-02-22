@@ -28,7 +28,7 @@ var DB = function(db_info, stores) {
   }*/
 
   var db;
-  
+
   var ev_initiated = new Event(this);
   var ev_error = new Event(this);
   var ev_item_added = new Event(this);
