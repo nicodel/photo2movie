@@ -59,7 +59,6 @@ var Controller = function() {
       config = inConfig;
     });
     __getAllAnimations();
-  
   });
 
   db_p2m.error.attach(function(inError) {
@@ -87,7 +86,7 @@ var Controller = function() {
       canvas.height = height;
       canvas.getContext('2d').drawImage(video, 0, 0, width, height);
       var data = canvas.toDataURL();
-      console.log("data", data);
+      // console.log("data", data);
       photo.setAttribute('src', data);
       video.className = "transparent";
       AnimModel.addPhoto([nb, data]);
@@ -132,7 +131,12 @@ var Controller = function() {
   }
 
   EditorView.exit.attach(function() {
+    console.log("exit editor view");
+    __getAllAnimations();
+    // AnimsModel.addItem(current_anim);
+    document.querySelector('x-deck').showCard(0);
   });
+
   function __getAllAnimations() {
     db_p2m.getAllStore(DB_ANIMS_STORE, function(inAnims) {
       AnimsModel = new Animations(inAnims);

@@ -9,12 +9,11 @@ var EditorView = function() {
   var i = 1;
 
   var ev_exit = new Event(this);
-  
+
   document.getElementById("btn-recorder-back").addEventListener ("click", function() {
     console.log("EXIT");
     // Controller.displayAnimations();
     ev_exit.notify();
-    document.querySelector('x-deck').showCard(0);
   });
 
   function display(inAnim) {

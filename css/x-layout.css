@@ -11,10 +11,6 @@ x-layout > section[data-type="animations"] {
   padding: 0;
 }
 
-
-
-
-
 x-layout > [data-type="animations"] ul {
   position: inherit;
 }
@@ -40,7 +36,14 @@ x-layout > [data-type="animations"] ul li p {
   word-wrap: break-word;
 }
 
-
+x-layout > [data-type="bottom-bar"] {
+  flex: 0 1 auto;
+  height: 48px;
+  padding: 0;
+}
+x-layout > [data-type="bottom-bar"] button.icon {
+  bottom: 0;
+}
 
 /*
   Settings

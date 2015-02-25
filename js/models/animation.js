@@ -27,7 +27,7 @@ var Animation = function(inAnim) {
 
   var addPhoto = function(inPhoto) {
     Anim.data.push(inPhoto);
-    console.log("Anim", Anim);
+    // console.log("Anim", Anim);
     ev_photo_added.notify({anim:Anim});
   };
 

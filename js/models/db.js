@@ -35,39 +35,49 @@ var DB = function(db_info, stores) {
   var ev_item_removed = new Event(this);
   var ev_item_updated = new Event(this);
 
-  // var __initiate = function() {
-    var req = window.indexedDB.open(db_info.name, db_info.version);
-    req.onsuccess = function() {
-      db = req.result;
-      console.log("initiated", db);
-      ev_initiated.notify(db);
-      db.onabort = function() {
-        db.close();
-        db = null;
-      };
+  /**
+   * Reset the whole IndexedDB database
+   */
+/*  var delreq = window.indexedDB.deleteDatabase(db_info.name);
+  delreq.onerror = function(e) {
+    console("reset error: ", e.error.name);
+  };
+  delreq.onsuccess = function() {
+    console.log(db_info.name + " deleted successful !");
+  };
+*/
+
+  var req = window.indexedDB.open(db_info.name, db_info.version);
+  req.onsuccess = function() {
+    db = req.result;
+    console.log("initiated", db);
+    ev_initiated.notify(db);
+    db.onabort = function() {
+      db.close();
+      db = null;
     };
-    req.onerror = function(e) {
-      ev_error.notify(e.target.error.name);
-    };
-    req.onupgradeneeded = function() {
-      for (var i = 0; i < stores.length; i++) {
-        var s = stores[i];
-        var store = req.result.createObjectStore(
-            s.name,
-            {keyPath: s.key, autoIncrement: s.increment}
-            );
-        var indexes = stores[i].index;
-        for (var j = 0; j < indexes.length; j++) {
-          var index = indexes[j];
-          store.createIndex(
-            index.name,
-            index.key,
-            {unique: index.unique}
+  };
+  req.onerror = function(e) {
+    ev_error.notify(e.target.error.name);
+  };
+  req.onupgradeneeded = function() {
+    for (var i = 0; i < stores.length; i++) {
+      var s = stores[i];
+      var store = req.result.createObjectStore(
+          s.name,
+          {keyPath: s.key, autoIncrement: s.increment}
           );
-        }
+      var indexes = stores[i].index;
+      for (var j = 0; j < indexes.length; j++) {
+        var index = indexes[j];
+        store.createIndex(
+          index.name,
+          index.key,
+          {unique: index.unique}
+        );
       }
-    };
-  // };
+    }
+  };
 
   /**
    * Retreive an item from a Db Store
@@ -97,7 +107,7 @@ var DB = function(db_info, stores) {
    * @param: (string} inStore
    */
   var updateItem = function(inItem, inStore) {
-    console.log("inItem", inItem);
+    // console.log("inItem", inItem);
     var tx = db.transaction(inStore, "readwrite");
     var store = tx.objectStore(inStore);
     var req = store.get(inItem.id);
@@ -157,19 +167,6 @@ var DB = function(db_info, stores) {
     }
   };
 
-  /**
-   * Reset the whole IndexedDB database
-   */
-  var resetDb = function(inName) {
-    var req = window.indexedDB.deleteDatabase(inName);
-    req.onerror = function(e) {
-      console("reset error: ", e.error.name);
-    };
-    req.onsuccess = function() {
-      console.log(inName + " deleted successful !");
-    }; 
-  };
-
   return {
     /* Events */
     initiated:        ev_initiated,
@@ -181,8 +178,7 @@ var DB = function(db_info, stores) {
     addItem:    addItem,
     updateItem:   updateItem,
     removeItem:   removeItem,
-    getAllStore:  getAllStore,
-    resetDB:      resetDb
+    getAllStore:  getAllStore
   };
 
 };

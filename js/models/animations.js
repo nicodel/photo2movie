@@ -15,8 +15,9 @@ var Animations = function(items) {
 
   var addItem = function (item) {
       items.push(item);
-      ev_photo_added.notify({
-          item: item
+      console.log("items", items);
+      ev_item_added.notify({
+          items: items
       });
   };
 
