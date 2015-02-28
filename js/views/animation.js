@@ -30,7 +30,7 @@ var AnimationView = function() {
     window.clearTimeout(timeoutID);
     player.src = anim.data[0][1];
     i = 1;
-  }
+  };
 
   return {
     display:  display,

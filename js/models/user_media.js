@@ -18,9 +18,10 @@ var UserMedia = function(elements) {
   var video = elements.video_container;
   var photo = elements.photo_container;
   var canvas = elements.canvas;
-  var take_btn = elements.take_btn;
+  // var take_btn = elements.take_btn;
 
-  take_btn.addEventListener("click", function() {
+  // take_btn.addEventListener("click", function() {
+  var takePhoto = function() {
     canvas.width = width;
     canvas.height = height;
     canvas.getContext("2d").drawImage(video, 0, 0, width, height);
@@ -31,7 +32,8 @@ var UserMedia = function(elements) {
     video.className = "transparent";
     // current_anim = Animations.addPhoto([nb, data]);
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
-  });
+  };
+  // });
 
 /*  video.addEventListener("loadeddata", function() {
     var camera_w = video.videoWidth;
@@ -76,7 +78,9 @@ var UserMedia = function(elements) {
 
   return {
     photo_taken:  ev_photo_taken,
-    error:        ev_error
+    error:        ev_error,
+
+    takePhoto:    takePhoto
   };
 
 };

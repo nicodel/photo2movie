@@ -1,6 +1,6 @@
 /*jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global DB, Animation, Animations, UserMedia, AnimationsView, EditorView */
+/* global DB, Animation, Animations, UserMedia, AnimationsView, Recorder */
 
 var Controller = function() {
   "use strict";
@@ -52,6 +52,10 @@ var Controller = function() {
     increment: true,
     index: index_anim
   };
+
+  /*
+   * Database
+   */
   db_p2m = new DB({name: DB_NAME, version: 1},[store_anim, store_config]);
 
   db_p2m.initiated.attach(function() {
@@ -104,6 +108,7 @@ var Controller = function() {
 
   AnimationsView.anim_clicked.attach(function(sender, args) {
     console.log("clicked on", args);
+    xdeck.showCard(3);
   });
 
 
@@ -121,16 +126,16 @@ var Controller = function() {
     nb =+ 1;
   }
   function editorPlay() {
-    EditorView.play();
+    Recorder.play();
   }
   function editorPause() {
-    EditorView.pause();
+    Recorder.pause();
   }
   function editorStop() {
-    EditorView.stop();
+    Recorder.stop();
   }
 
-  EditorView.exit.attach(function() {
+  Recorder.exit.attach(function() {
     console.log("exit editor view");
     __getAllAnimations();
     // AnimsModel.addItem(current_anim);
