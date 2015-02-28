@@ -44,8 +44,7 @@ var DB = function(db_info, stores) {
   };
   delreq.onsuccess = function() {
     console.log(db_info.name + " deleted successful !");
-  };
-*/
+  };*/
 
   var req = window.indexedDB.open(db_info.name, db_info.version);
   req.onsuccess = function() {

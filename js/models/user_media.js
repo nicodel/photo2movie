@@ -26,7 +26,7 @@ var UserMedia = function(elements) {
     canvas.height = height;
     canvas.getContext("2d").drawImage(video, 0, 0, width, height);
     var data = canvas.toDataURL();
-    console.log("data", data);
+    // console.log("data", data);
     ev_photo_taken.notify(data);
 /*    photo.setAttribute("src", data);
     video.className = "transparent";*/

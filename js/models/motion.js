@@ -1,10 +1,10 @@
 /* jshint browser: true, strict: true, devel: true */
-/* exported Animation */
+/* exported Motion */
 
-var Animation = function(inAnim) {
+var Motion = function(inMotion) {
   "use strict";
 
-  var Anim;
+  var motion;
 
   var ev_new_created = new Event(this);
   var ev_take_photo_clicked = new Event(this);
@@ -12,23 +12,22 @@ var Animation = function(inAnim) {
   var ev_photo_removed = new Event(this);
   var ev_updated = new Event(this);
 
-  if (!inAnim) {
-    Anim = {};
+  if (!inMotion) {
+    motion = {};
     var d = new Date();
-    Anim.date = d.toISOString();
-    Anim.id = Anim.date;
-    Anim.name = "AN-" + Anim.date;
-    Anim.image_sec = 30;
-    Anim.data = [];
+    motion.date = d.toISOString();
+    motion.id = motion.date;
+    motion.name = "AN-" + motion.date;
+    motion.image_sec = 30;
+    motion.data = [];
   } else {
-    Anim = inAnim;
+    motion = inMotion;
   }
-  console.log("Anim", Anim);
+  console.log("motion", motion);
 
   var addPhoto = function(inPhoto) {
-    Anim.data.push(inPhoto);
-    // console.log("Anim", Anim);
-    ev_photo_added.notify({anim:Anim});
+    motion.data.push(inPhoto);
+    ev_photo_added.notify({anim:motion});
   };
 
   var removePhoto = function() {};
@@ -46,54 +45,4 @@ var Animation = function(inAnim) {
     removePhoto:  removePhoto,
     rename:       rename
   };
-
-/*  var current_anim = {};
-  function open() {
-    current_anim = {};
-    var d = new Date();
-    current_anim.date = d.toISOString();
-    current_anim.id = current_anim.date;
-    current_anim.name = "AN-" + current_anim.date;
-    current_anim.image_sec = 30;
-    current_anim.data = [];
-    return current_anim;
-  }
-  function addPhoto(inPhoto) {
-    current_anim.data.push(inPhoto);
-    return current_anim;
-  }
-  return {
-    open: open,
-    addPhoto: addPhoto
-  };*/
-
-/*  var anim;
-  var timeoutID;
-  var i = 1;
-  var player = document.getElementById("video-player");
-  var display = function(inAnim) {
-    anim = inAnim;
-    player.src = anim.data[0][1];
-  };
-  var play = function() {
-    player.src = anim.data[i][1];
-    i++;
-    if (i < anim.data.length) {
-      timeoutID = window.setTimeout(play, 500);
-    }
-  };
-  var pause = function() {
-    window.clearTimeout(timeoutID);
-  };
-  var stop = function() {
-    window.clearTimeout(timeoutID);
-    player.src = anim.data[0][1];
-    i = 1;
-  };
-  return {
-    display:  display,
-    play:     play,
-    pause:    pause,
-    stop:     stop
-  };*/
 };

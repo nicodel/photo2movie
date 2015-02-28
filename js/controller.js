@@ -5,8 +5,8 @@
 var Controller = function() {
   "use strict";
 
-  var current_anim = {};
-  var nb           = 0;
+  var current_motion  = {};
+  var nb              = 0;
       // streaming    = false,
       // video        = document.querySelector('#video'),
       // canvas       = document.querySelector('#canvas'),
@@ -21,12 +21,12 @@ var Controller = function() {
 
   var db_p2m = null;
   var AnimsModel = null;
-  var Motion = null;
+  var MoTion = null;
   var Camera = null;
 
   var DB_NAME = "p2m";
   var DB_CONFIG_STORE = "settings";
-  var DB_ANIMS_STORE = "animations";
+  var DB_MOTIONS_STORE = "motions";
   var config;
   var xdeck = document.querySelector("x-deck");
 
@@ -38,16 +38,16 @@ var Controller = function() {
   var index_config = [
       {name: "key", key: "key", unique: true},
       {name: "value", key: "value", unique: false},
-      ];
+    ];
   var store_config = {
     name: DB_CONFIG_STORE,
     key: "key",
     increment: false,
     index: index_config
   };
-  var index_anim = [{name: "animid", key: "animid", unique: true}];
+  var index_anim = [{name: "id", key: "id", unique: true}];
   var store_anim = {
-    name: DB_ANIMS_STORE,
+    name: DB_MOTIONS_STORE,
     key: "id",
     increment: true,
     index: index_anim
@@ -75,7 +75,7 @@ var Controller = function() {
   });
   ListView.new_item_clicked.attach(function() {
     // addItem();
-    Motion = new Motion();
+    MoTion = new Motion();
     console.log("un nouveau !");
     xdeck.showCard(2);
 
@@ -86,15 +86,15 @@ var Controller = function() {
       // take_btn: document.getElementById("btn-recorder-take-photo")
     });
     Camera.photo_taken.attach(function(sender, data) {
-      Motion.addPhoto([nb, data]);
-      current_anim = Motion.addPhoto([nb, data]);
-      db_p2m.updateItem(current_anim, DB_ANIMS_STORE);
+      MoTion.addPhoto([nb, data]);
+      // current_motion = MoTion.addPhoto([nb, data]);
+      db_p2m.updateItem(current_motion, DB_MOTIONS_STORE);
       nb =+ 1;
     });
 
-    Motion.photo_added.attach(function(sender, args) {
+    MoTion.photo_added.attach(function(sender, args) {
       console.log("args.anim", args.anim);
-      db_p2m.updateItem(args.anim, DB_ANIMS_STORE);
+      db_p2m.updateItem(args.anim, DB_MOTIONS_STORE);
     });
   });
 
@@ -112,9 +112,9 @@ var Controller = function() {
     // console.log("data", data);
     photo.setAttribute('src', data);
     video.className = "transparent";
-    current_anim = Animations.addPhoto([nb, data]);
-    // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
-    db_p2m.updateItem(current_anim, DB_ANIMS_STORE);
+    current_motion = Animations.addPhoto([nb, data]);
+    // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_motion);
+    db_p2m.updateItem(current_motion, DB_MOTIONS_STORE);
     nb =+ 1;
   }*/
   /*function editorPlay() {
@@ -137,12 +137,12 @@ var Controller = function() {
   Recorder.back_to_list.attach(function() {
     console.log("exit editor view");
     __getAllAnimations();
-    // AnimsModel.addItem(current_anim);
+    // AnimsModel.addItem(current_motion);
     xdeck.showCard(0);
   });
 
   function __getAllAnimations() {
-    db_p2m.getAllStore(DB_ANIMS_STORE, function(inAnims) {
+    db_p2m.getAllStore(DB_MOTIONS_STORE, function(inAnims) {
       AnimsModel = new List(inAnims);
       ListView.display(inAnims);
       AnimsModel.item_added.attach(function(items) {
