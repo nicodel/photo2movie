@@ -14,8 +14,10 @@
     <!-- fonts -->
     <link rel="stylesheet" href="css/fonts.css"/>
 
+    <!-- notifier -->
+    <link rel="stylesheet" href="lib/notifier.css"/>
+
     <!-- skin -->
-    <link rel="stylesheet" href="css/status.css"/>
     <link rel="stylesheet" href="css/x-layout.css"/>
     <link rel="stylesheet" href="css/spinner.css"/>
     <link rel="stylesheet" href="css/buttons.css"/>
@@ -53,9 +55,9 @@
           <canvas id="canvas"></canvas>
           <img id="photo" alt="photo">
           <video id="video"></video>
-          <button id="btn-recorder-back" class="icon icon-exit icon-left">Exit</button>
+          <button id="btn-recorder-back-to-list" class="icon icon-exit icon-left">Exit</button>
           <button id="btn-recorder-take-photo" class="icon icon-take">Take photo</button>
-          <button id="btn-recorder-edit" class="icon icon-open icon-right">Edit</button>
+          <button id="btn-recorder-edit-motion" class="icon icon-open icon-right">Edit</button>
         </section>
         </x-card>
 
@@ -76,14 +78,14 @@
   </body>
   <!-- librairies -->
   <script src="lib/brick/brick.min.js"></script>
+  <script src="lib/notifier/notifier.js"></script>
   <script src="lib/event.js"></script>
   <!-- views -->
-  <script type="text/javascript" src="js/views/animations.js"></script>
-  <script type="text/javascript" src="js/views/status.js"></script>
+  <script type="text/javascript" src="js/views/list.js"></script>
   <script type="text/javascript" src="js/views/recorder.js"></script>
   <!-- models -->
   <script type="text/javascript" src="js/models/user_media.js"></script>
-  <script type="text/javascript" src="js/models/animations.js"></script>
+  <script type="text/javascript" src="js/models/list.js"></script>
   <script type="text/javascript" src="js/models/animation.js"></script>
   <script type="text/javascript" src="js/models/chrono.js"></script>
   <script type="text/javascript" src="js/models/db.js"></script>

@@ -16,7 +16,7 @@ var UserMedia = function(elements) {
   var ev_error = new Event(this);
 
   var video = elements.video_container;
-  var photo = elements.photo_container;
+  // var photo = elements.photo_container;
   var canvas = elements.canvas;
   // var take_btn = elements.take_btn;
 
@@ -26,10 +26,10 @@ var UserMedia = function(elements) {
     canvas.height = height;
     canvas.getContext("2d").drawImage(video, 0, 0, width, height);
     var data = canvas.toDataURL();
-    // console.log("data", data);
+    console.log("data", data);
     ev_photo_taken.notify(data);
-    photo.setAttribute("src", data);
-    video.className = "transparent";
+/*    photo.setAttribute("src", data);
+    video.className = "transparent";*/
     // current_anim = Animations.addPhoto([nb, data]);
     // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_anim);
   };

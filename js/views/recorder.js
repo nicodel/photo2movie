@@ -3,19 +3,20 @@
 
 var Recorder = function() {
   "use strict";
-  var anim_played,
-      timeoutID;
+  var anim_played;
+      // timeoutID;
   var player = document.getElementById("video-player");
-  var i = 1;
+  // var i = 1;
 
   var ev_take_photo_clicked = new Event(this);
-  var ev_exit = new Event(this);
+  var ev_back_to_list = new Event(this);
 
   document.getElementById("btn-recorder-take-photo").addEventListener("click", function() {
+    console.log("take_photo_clicked");
     ev_take_photo_clicked.notify();
   });
-  document.getElementById("btn-recorder-back").addEventListener ("click", function() {
-    ev_exit.notify();
+  document.getElementById("btn-recorder-back-to-list").addEventListener ("click", function() {
+    ev_back_to_list.notify();
   });
 
   function display(inAnim) {
@@ -23,7 +24,7 @@ var Recorder = function() {
     player.src = anim_played.data[0][1];
   }
 
-  function play() {
+/*  function play() {
     player.src = anim_played.data[i][1];
     i++;
     if( i < anim_played.data.length ){
@@ -37,7 +38,7 @@ var Recorder = function() {
   }
   function pause() {
     window.clearTimeout(timeoutID);
-  }
+  }*/
 
   //   for (i = 0; i < anim_played.data.length; i++) {
   //     var a = anim_played.data[i][1];
@@ -53,11 +54,11 @@ var Recorder = function() {
 
   return {
     take_photo_clicked: ev_take_photo_clicked,
-    exit:               ev_exit,
+    back_to_list:       ev_back_to_list,
 
     display:  display,
-    play:     play,
+    /*play:     play,
     stop:     stop,
-    pause:    pause
+    pause:    pause*/
   };
 }();
