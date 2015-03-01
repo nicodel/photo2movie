@@ -5,19 +5,7 @@
 var Controller = function() {
   "use strict";
 
-  // var current_motion  = {};
   var nb              = 0;
-      // streaming    = false,
-      // video        = document.querySelector('#video'),
-      // canvas       = document.querySelector('#canvas'),
-      // photo        = document.querySelector('#photo'),
-      // startbutton  = document.querySelector('#btn-take'),
-      // width        = 640,
-      // width        = 320, //Flame
-      // height       = width * 0.75;
-      // height       = 240; // Webcam
-      // height       = 427; //Flame
-      // height       = 480;
 
   var db_p2m = null;
   var AnimsModel = null;
@@ -102,9 +90,9 @@ var Controller = function() {
     xdeck.showCard(3);
   });
 
-  /*
+  /*********************************************
    * Recorder
-   */
+   *********************************************/
   Recorder.take_photo_clicked.attach(function() {
     console.log("controller take_photo_clicked");
     Camera.takePhoto();
