@@ -83,8 +83,9 @@ var Controller = function() {
     });
   });
 
-  ListView.item_clicked.attach(function(sender, args) {
-    console.log("clicked on", args);
+  ListView.item_clicked.attach(function(sender, item) {
+    console.log("clicked on", item);
+    Player.load(item);
     xdeck.showCard(3);
   });
 

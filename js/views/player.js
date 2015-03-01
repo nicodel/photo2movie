@@ -26,11 +26,18 @@ var Player = function() {
     ev_edit_motion();
   });
 
+  var load = function(inMotion) {
+    document.getElementById("motion-title").innerHTML = inMotion.name;
+    document.getElementById("video-player").src = inMotion.data[0][1];
+  };
+
   return {
     back_to:      ev_back_to,
     play:         ev_play,
     pause:        ev_pause,
     stop:         ev_stop,
-    edit_motion:  ev_edit_motion
+    edit_motion:  ev_edit_motion,
+
+    load:         load
   };
 }();
