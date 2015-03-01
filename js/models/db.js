@@ -106,7 +106,8 @@ var DB = function(db_info, stores) {
    * @param: (string} inStore
    */
   var updateItem = function(inItem, inStore) {
-    // console.log("inItem", inItem);
+    console.log("inItem", inItem);
+    console.log("inStore", inStore);
     var tx = db.transaction(inStore, "readwrite");
     var store = tx.objectStore(inStore);
     var req = store.get(inItem.id);

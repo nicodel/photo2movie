@@ -5,7 +5,7 @@
 var Controller = function() {
   "use strict";
 
-  var current_motion  = {};
+  // var current_motion  = {};
   var nb              = 0;
       // streaming    = false,
       // video        = document.querySelector('#video'),
@@ -45,18 +45,18 @@ var Controller = function() {
     increment: false,
     index: index_config
   };
-  var index_anim = [{name: "id", key: "id", unique: true}];
-  var store_anim = {
+  var index_motion = [{name: "id", key: "id", unique: true}];
+  var store_motion = {
     name: DB_MOTIONS_STORE,
     key: "id",
     increment: true,
-    index: index_anim
+    index: index_motion
   };
 
-  /*
+  /*********************************************
    * Database
-   */
-  db_p2m = new DB({name: DB_NAME, version: 1},[store_anim, store_config]);
+   *********************************************/
+  db_p2m = new DB({name: DB_NAME, version: 1},[store_motion, store_config]);
 
   db_p2m.initiated.attach(function() {
     db_p2m.getAllStore(DB_CONFIG_STORE, function(inConfig) {
@@ -87,8 +87,7 @@ var Controller = function() {
     });
     Camera.photo_taken.attach(function(sender, data) {
       MoTion.addPhoto([nb, data]);
-      // current_motion = MoTion.addPhoto([nb, data]);
-      db_p2m.updateItem(current_motion, DB_MOTIONS_STORE);
+      Recorder.updateBackendPhoto(data);
       nb =+ 1;
     });
 
@@ -102,30 +101,6 @@ var Controller = function() {
     console.log("clicked on", args);
     xdeck.showCard(3);
   });
-
-
-/*  function takePicture() {
-    canvas.width = width;
-    canvas.height = height;
-    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL();
-    // console.log("data", data);
-    photo.setAttribute('src', data);
-    video.className = "transparent";
-    current_motion = Animations.addPhoto([nb, data]);
-    // DB.updateAnimation(__updateAnimationSuccess, __updateAnimationError, current_motion);
-    db_p2m.updateItem(current_motion, DB_MOTIONS_STORE);
-    nb =+ 1;
-  }*/
-  /*function editorPlay() {
-    Recorder.play();
-  }
-  function editorPause() {
-    Recorder.pause();
-  }
-  function editorStop() {
-    Recorder.stop();
-  }*/
 
   /*
    * Recorder
@@ -153,18 +128,4 @@ var Controller = function() {
       });
     });
   }
-
-/*  function displayAnimations() {
-    DB.getAnimations(__getAnimationsSuccess, __getAnimationsError);
-  }*/
-
-  return {
-    // init: init,
-    // initiateCamera: initiateCamera,
-    // takePicture: takePicture,
-    /*editorPlay: editorPlay,
-    editorPause: editorPause,
-    editorStop: editorStop,*/
-    // displayAnimations: displayAnimations
-  };
 }();

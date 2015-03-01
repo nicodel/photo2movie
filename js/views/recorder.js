@@ -19,44 +19,22 @@ var Recorder = function() {
     ev_back_to_list.notify();
   });
 
-  function display(inAnim) {
+  var display = function(inAnim) {
     anim_played = inAnim;
     player.src = anim_played.data[0][1];
-  }
+  };
 
-/*  function play() {
-    player.src = anim_played.data[i][1];
-    i++;
-    if( i < anim_played.data.length ){
-      timeoutID = window.setTimeout( play, 500 );
-    }
-  }
-  function stop() {
-    window.clearTimeout(timeoutID);
-    player.src = anim_played.data[0][1];
-    i = 1;
-  }
-  function pause() {
-    window.clearTimeout(timeoutID);
-  }*/
-
-  //   for (i = 0; i < anim_played.data.length; i++) {
-  //     var a = anim_played.data[i][1];
-  //     timeoutID = window.setTimeout(__next, 500, a);
-  //   };
-  // }
-
-  /*function __next(inPhoto) {
-    console.log("display", inPhoto);
-    player.src = inPhoto;
-    return true;
-  }*/
+  var updateBackendPhoto = function(inPhoto) {
+    document.getElementById("photo").src = inPhoto;
+    document.getElementById("video").className = "transparent";
+  };
 
   return {
     take_photo_clicked: ev_take_photo_clicked,
     back_to_list:       ev_back_to_list,
 
     display:  display,
+    updateBackendPhoto: updateBackendPhoto
     /*play:     play,
     stop:     stop,
     pause:    pause*/
