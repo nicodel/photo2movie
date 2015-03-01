@@ -1,22 +1,22 @@
 /*jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global DB, Motion, List, UserMedia, ListView, Recorder */
+/* global DB, Motion, List, UserMedia, ListView, Recorder, Player */
 
 var Controller = function() {
   "use strict";
 
-  var nb              = 0;
+  var nb                = 0;
+  var db_p2m            = null;
+  var AnimsModel        = null;
+  var MoTion            = null;
+  var Camera            = null;
+  var previous_edition  = null;
 
-  var db_p2m = null;
-  var AnimsModel = null;
-  var MoTion = null;
-  var Camera = null;
-
-  var DB_NAME = "p2m";
-  var DB_CONFIG_STORE = "settings";
-  var DB_MOTIONS_STORE = "motions";
-  var config;
-  var xdeck = document.querySelector("x-deck");
+  var DB_NAME           = "p2m";
+  var DB_CONFIG_STORE   = "settings";
+  var DB_MOTIONS_STORE  = "motions";
+  var config            = null;
+  var xdeck             = document.querySelector("x-deck");
 
   navigator.getMedia = (navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
@@ -69,9 +69,7 @@ var Controller = function() {
 
     Camera = new UserMedia({
       video_container: document.getElementById("video"),
-      // photo_container: document.getElementById("photo"),
       canvas: document.getElementById("canvas")
-      // take_btn: document.getElementById("btn-recorder-take-photo")
     });
     Camera.photo_taken.attach(function(sender, data) {
       MoTion.addPhoto([nb, data]);
@@ -102,6 +100,17 @@ var Controller = function() {
     __getAllAnimations();
     // AnimsModel.addItem(current_motion);
     xdeck.showCard(0);
+  });
+
+  /*********************************************
+   * Player
+   *********************************************/
+  Player.back_to.attach(function() {
+    if (previous_edition === "recorder") {
+      console.log("recoreder");
+    } else if (previous_edition === "list") {
+      console.log("list");
+    }
   });
 
   function __getAllAnimations() {
