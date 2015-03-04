@@ -30,6 +30,14 @@ section button.icon {
   bottom: 10px;
   position: absolute;
 }
+section[data-type="bottom-bar"] {
+  position: fixed;
+  bottom: 0
+}
+section[data-type="bottom-bar"] button.icon {
+  position: initial;
+  display: inline;
+}
 button#btn-recorder-take-photo {
   right: calc(50% - 42px);
   width: 84px;
