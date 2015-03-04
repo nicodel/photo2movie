@@ -4,6 +4,6 @@
 var p2m = function() {
   "use strict";
   document.addEventListener('DOMComponentsLoaded', function(){
-    document.querySelector('x-deck').showCard(3);
+    document.querySelector('x-deck').showCard(0);
   });
 }();

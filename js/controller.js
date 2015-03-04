@@ -10,7 +10,7 @@ var Controller = function() {
   var AnimsModel        = null;
   var MoTion            = null;
   var Camera            = null;
-  var previous_edition  = null;
+  var previous_edition  = "list";
 
   var DB_NAME           = "p2m";
   var DB_CONFIG_STORE   = "settings";
@@ -66,6 +66,7 @@ var Controller = function() {
     MoTion = new Motion();
     console.log("un nouveau !");
     xdeck.showCard(2);
+    previous_edition = "recorder";
 
     Camera = new UserMedia({
       video_container: document.getElementById("video"),
@@ -107,10 +108,13 @@ var Controller = function() {
    * Player
    *********************************************/
   Player.back_to.attach(function() {
+    console.log("going back to", previous_edition);
     if (previous_edition === "recorder") {
-      console.log("recoreder");
+      console.log("recorder");
+      xdeck.showCard();
     } else if (previous_edition === "list") {
       console.log("list");
+      xdeck.showCard(0);
     }
   });
 
