@@ -78,6 +78,24 @@
         </section>
         </x-card>
 
+        <!-- Card 4 -->
+        <x-card id="Editor">
+        <section>
+          <p id="editor-motion-title"></p>
+          <img id="editor-video-player">
+        </section>
+        <section data-type="bottom-bar">
+          <button id="btn-editor-back" class="icon icon-back icon-left">Back</button>
+          <button id="btn-editor-play" class="icon icon-play icon-left">Play</button>
+          <button id="btn-editor-pause" class="icon icon-pause">Pause</button>
+          <button id="btn-editor-stop" class="icon icon-stop">Stop</button>
+          <button id="btn-editor-edit" class="icon icon-edit icon-right">Edit</button>
+        </section>
+        <section>
+          <ul id="editor-photo-list"></ul>
+        </section>
+        </x-card>
+
         </x-deck>
   </body>
   <!-- librairies -->
@@ -88,6 +106,7 @@
   <script type="text/javascript" src="js/views/list.js"></script>
   <script type="text/javascript" src="js/views/recorder.js"></script>
   <script type="text/javascript" src="js/views/player.js"></script>
+  <script type="text/javascript" src="js/views/editor.js"></script>
   <!-- models -->
   <script type="text/javascript" src="js/models/user_media.js"></script>
   <script type="text/javascript" src="js/models/list.js"></script>

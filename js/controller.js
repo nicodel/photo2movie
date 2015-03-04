@@ -1,6 +1,6 @@
 /*jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global DB, Motion, List, UserMedia, ListView, Recorder, Player */
+/* global DB, Motion, List, UserMedia, ListView, Recorder, Player, Editor */
 
 var Controller = function() {
   "use strict";
@@ -119,6 +119,11 @@ var Controller = function() {
       console.log("list");
       xdeck.showCard(0);
     }
+  });
+  Player.edit_motion.attach(function(sender, items) {
+    console.log("editing", items);
+    Editor.load(items[0]);
+    xdeck.showCard(4);
   });
 
   function __getAllAnimations() {

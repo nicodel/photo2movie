@@ -23,8 +23,9 @@ var Player = function() {
   document.getElementById("btn-player-stop").addEventListener("click", function() {
     __stop();
   });
-  document.getElementById("btn-player-stop").addEventListener("click", function() {
-    ev_edit_motion();
+  document.getElementById("btn-player-edit").addEventListener("click", function() {
+    console.log("about to edit", motion);
+    ev_edit_motion.notify(motion);
   });
 
   var load = function(inMotion) {
