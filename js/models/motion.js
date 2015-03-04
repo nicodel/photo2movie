@@ -34,6 +34,10 @@ var Motion = function(inMotion) {
 
   var rename = function() {};
 
+  var load = function(inMotion) {
+    motion = inMotion;
+  };
+
   return {
     new_created:        ev_new_created,
     take_photo_clicked: ev_take_photo_clicked,
@@ -43,6 +47,7 @@ var Motion = function(inMotion) {
 
     addPhoto:     addPhoto,
     removePhoto:  removePhoto,
-    rename:       rename
+    rename:       rename,
+    load:         load
   };
 };

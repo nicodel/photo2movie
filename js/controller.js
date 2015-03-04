@@ -11,6 +11,7 @@ var Controller = function() {
   var MoTion            = null;
   var Camera            = null;
   var previous_edition  = "list";
+  var edited_motion     = null;
 
   var DB_NAME           = "p2m";
   var DB_CONFIG_STORE   = "settings";
@@ -86,6 +87,8 @@ var Controller = function() {
 
   ListView.item_clicked.attach(function(sender, item) {
     console.log("clicked on", item);
+    edited_motion = new Motion();
+    edited_motion.load(item);
     Player.load(item);
     xdeck.showCard(3);
   });
